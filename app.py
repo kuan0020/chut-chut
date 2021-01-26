@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 items = []
 
-bus_stops = [16086, 16085, 877, 16183, 16111]
+bus_stops = [16086, 16085, 877, 16183, 16111, 16112]
 
 for n in bus_stops:
     items.append(get_info(n))
