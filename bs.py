@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests 
 from datetime import datetime 
+import math 
 
 def json_datetime_convert(json_dt):
     json_dt = str(json_dt)
@@ -24,10 +25,10 @@ def get_info(bus_stop: str):
         # dep_time.append(json_datetime_convert(nex_trips[i].departuretime.string))
         bus_num.append(nex_trips[i].find_all('route')[0].string)
 
-    actual = actual[:len(actual)//4]
-    dep_text = dep_text[:len(dep_text)//4]
+    actual = actual[:math.ceil(len(actual)/4)]
+    dep_text = dep_text[:math.ceil(len(dep_text)/4)]
     # dep_time = dep_time[:len(dep_time)//4]
-    bus_num = bus_num[:len(bus_num)//4]
+    bus_num = bus_num[:math.ceil(len(bus_num)/4)]
     
     items = []
     for i in range(len(actual)):
@@ -37,3 +38,5 @@ def get_info(bus_stop: str):
     if len(items) == 0:
         items.append(dict(bus_stop=str(bus_stop), actual='-', dep_text='-', bus_num='-'))
     return items
+
+print(get_info(16183))
