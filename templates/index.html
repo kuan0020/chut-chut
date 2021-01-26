@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono">
+
+<head>
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: auto;
+        }
+        
+        h2 {
+            font-size: 55px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: auto;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid rgb(65, 65, 65);
+            font-size: 50px;
+        }
+        
+        td.active {
+            background-color: rgba(133, 221, 133, 0.822);
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        th {
+            background-color: #0534b6;
+            color: white;
+        }
+    </style>
+    <title>Chut Chut</title>
+</head>
+
+<script>
+    $(function() {
+        window.setInterval(function() {
+            loadNewDepText()
+        }, 1000)
+
+        function loadNewDepText() {
+            $.ajax({
+                url: "/update_dep",
+                type: "POST",
+                dataType: "json",
+                success: function(data) {
+                    $(dep_info).replaceWith(data)
+                }
+
+            });
+        }
+    });
+</script>
+
+<body>
+    <div id="dep_info">
+
+    {% for stops in items%}
+        <h2>{{stops[0].bus_stop}}</h2>
+
+        <table>
+            <tr>
+                <th>Bus No.</th>
+                <th colspan="2">Time</th>
+            </tr>
+            {% for item in stops %}
+            <TR>
+                {% if item.actual == 'true' %}
+                <TD class='active'>{{item.bus_num}}</TD>
+                <TD class='active' colspan="2">{{item.dep_text}}</TD>
+                {% else %}
+                <TD>{{item.bus_num}}</TD>
+                <TD colspan="2">{{item.dep_text}}</TD>
+                {% endif %}
+            </TR>
+            {% endfor %}
+        </table>
+
+    <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0;">
+
+    {% endfor %}
+</div>
+
+</body>
+
+
+
+</html>

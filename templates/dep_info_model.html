@@ -1,0 +1,26 @@
+<div id="dep_info">
+    {% for stops in items%}
+        <h2>{{stops[0].bus_stop}}</h2>
+
+        <table>
+            <tr>
+                <th>Bus No.</th>
+                <th colspan="2">Time</th>
+            </tr>
+            {% for item in stops %}
+            <TR>
+                {% if item.actual == 'true' %}
+                <TD class='active'>{{item.bus_num}}</TD>
+                <TD class='active' colspan="2">{{item.dep_text}}</TD>
+                {% else %}
+                <TD>{{item.bus_num}}</TD>
+                <TD colspan="2">{{item.dep_text}}</TD>
+                {% endif %}
+            </TR>
+            {% endfor %}
+        </table>
+
+    <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0;">
+    
+    {% endfor %}
+</div>
