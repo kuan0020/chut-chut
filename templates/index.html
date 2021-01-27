@@ -2,7 +2,9 @@
 <html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:wght@700">
+
 
 <head>
     <style>
@@ -12,17 +14,27 @@
             overflow: auto;
         }
         
-        h2 {
-            font-size: 55px;
-            font-family: 'JetBrains Mono', monospace;
+        h1 {
+            font-size: 65px;
+            font-family: 'Lato', monospace;
         }
         
+        h1.time {
+            background-color: darkkhaki;
+            display: inline-flex;
+            padding: 10px;
+        }
 
+        h2 {
+            font-size: 55px;
+            font-family: 'Source Sans Pro', monospace;
+        }
+        
         table {
             border-collapse: collapse;
             width: 100%;
             table-layout: auto;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Source Sans Pro', monospace;
         }
         
         th,
@@ -67,12 +79,29 @@
             });
         }
     });
+
+    window.addEventListener('load', (event) => {
+        let today = new Date();
+        let time = today.toLocaleString();
+        displayTime(time);
+    });
+
+    setInterval(function() {
+        var today = new Date();
+        var time = today.toLocaleString();
+        document.getElementById("time").innerHTML = time;
+    }, 1000);
+
+    function displayTime(time) {
+        document.getElementById("time").innerHTML = time;
+    }
 </script>
 
 <body>
+    <h1 class="time" id="time"></h1>
     <div id="dep_info">
 
-    {% for stops in items%}
+        {% for stops in items%}
         <h2>{{stops[0].bus_stop}}</h2>
 
         <table>
@@ -93,10 +122,8 @@
             {% endfor %}
         </table>
 
-    <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0;">
-
-    {% endfor %}
-</div>
+        <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0;"> {% endfor %}
+    </div>
 
 </body>
 

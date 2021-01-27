@@ -38,5 +38,3 @@ def get_info(bus_stop: str):
     if len(items) == 0:
         items.append(dict(bus_stop=str(bus_stop), actual='-', dep_text='-', bus_num='-'))
     return items
-
-print(get_info(16183))
