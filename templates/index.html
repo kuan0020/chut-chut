@@ -12,22 +12,44 @@
         body {
             height: 100%;
             overflow: auto;
+            background-color: #121212;
         }
         
         h1 {
-            font-size: 65px;
+            font-size: 75px;
             font-family: 'Lato', monospace;
         }
         
         h1.time {
-            background-color: darkkhaki;
-            display: inline-flex;
+            color: #ecebeb;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            display: flex;
             padding: 10px;
         }
-
+        
+        a:link,
+        a:visited {
+            background-color: #ecebeb;
+            color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 10px;
+        }
+        
+        a:hover,
+        a:active {
+            background-color: rgba(47, 136, 47, 0.486);
+            color: #ecebeb;
+        }
+        
         h2 {
-            font-size: 55px;
+            font-size: 65px;
             font-family: 'Source Sans Pro', monospace;
+            color: #ecebeb;
         }
         
         table {
@@ -35,6 +57,21 @@
             width: 100%;
             table-layout: auto;
             font-family: 'Source Sans Pro', monospace;
+        }
+        
+        table.styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: 'Source Sans Pro';
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            color: #ecebeb;
+            border-radius: 8px;
+        }
+        
+        table.styled-table tbody tr:nth-of-type(even) {
+            background-color: #161616;
         }
         
         th,
@@ -46,16 +83,17 @@
         }
         
         td.active {
-            background-color: rgba(133, 221, 133, 0.822);
+            background-color: rgba(47, 136, 47, 0.582);
         }
         
         tr:hover {
-            background-color: #f5f5f5;
+            background-color: #ffffff34;
+            color: whitesmoke;
         }
         
         th {
-            background-color: #0534b6;
-            color: white;
+            background-color: #131357c5;
+            color: #ecebeb;
         }
     </style>
     <title>Chut Chut</title>
@@ -102,27 +140,30 @@
     <div id="dep_info">
 
         {% for stops in items%}
-        <h2>{{stops[0].bus_stop}}</h2>
+        <h2><a href={{ ''.join([ 'https://www.metrotransit.org/nextrip/', stops[0].bus_stop]) }} " target="_blank">{{ stops[0].bus_stop }}</a></h2>
 
-        <table>
+        <table class="styled-table ">
             <tr>
                 <th>Bus No.</th>
-                <th colspan="2">Time</th>
+                <th colspan="2 ">Time</th>
             </tr>
             {% for item in stops %}
             <TR>
                 {% if item.actual == 'true' %}
                 <TD class='active'>{{item.bus_num}}</TD>
-                <TD class='active' colspan="2">{{item.dep_text}}</TD>
+                <TD class='active' colspan="2 ">{{item.dep_text}}</TD>
                 {% else %}
                 <TD>{{item.bus_num}}</TD>
-                <TD colspan="2">{{item.dep_text}}</TD>
+                <TD colspan="2 ">{{item.dep_text}}</TD>
                 {% endif %}
             </TR>
             {% endfor %}
         </table>
 
-        <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0;"> {% endfor %}
+        <hr style="border-radius:5px; ">
+
+        <!-- <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0; ">  -->
+        {% endfor %}
     </div>
 
 </body>

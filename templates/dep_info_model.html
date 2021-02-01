@@ -1,8 +1,8 @@
 <div id="dep_info">
     {% for stops in items%}
-        <h2>{{stops[0].bus_stop}}</h2>
-
-        <table>
+        <!-- <h2><a href="#">{{stops[0].bus_stop}}</a></h2> -->
+        <h2><a href={{ ''.join([ 'https://www.metrotransit.org/nextrip/', stops[0].bus_stop]) }} " target="_blank">{{ stops[0].bus_stop }}</a></h2>
+        <table class="styled-table">
             <tr>
                 <th>Bus No.</th>
                 <th colspan="2">Time</th>
@@ -20,7 +20,10 @@
             {% endfor %}
         </table>
 
-    <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0;">
+        <hr style="border-radius:5px;">
+
+
+    <!-- <hr style="border:0; height:95px; background:url(/static/bus.gif) 50% 0 repeat; margin:1em 0;"> -->
     
     {% endfor %}
 </div>
